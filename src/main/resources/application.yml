@@ -1,0 +1,37 @@
+security:
+  oauth2:
+    client:
+      id: eve
+      client-id: clientId
+      client-secret: secret
+      grant-type: authorization_code
+      user-authorization-uri: https://login.eveonline.com/v2/oauth/authorize
+      access-token-uri: https://login.eveonline.com/v2/oauth/token
+      pre-established-redirect-uri: http://localhost:8080/login/oauth2/code/eve
+      use-current-uri: false
+      scope:
+        - esi-characters.read_blueprints.v1
+    resource:
+      user-info-uri: https://login.eveonline.com/oauth/verify
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          eve:
+            authorization-grant-type: authorization_code
+            client-id: clientId
+            client-secret: secret
+            redirect-uri: http://localhost:8080/login/oauth2/code/eve
+            client-authentication-method: basic
+            scope:
+              - esi-characters.read_blueprints.v1
+        provider:
+          eve:
+            authorization-uri: https://login.eveonline.com/v2/oauth/authorize
+            token-uri: https://login.eveonline.com/v2/oauth/token
+            user-info-uri: https://login.eveonline.com/oauth/verify
+            user-name-attribute: CharacterID
+logging:
+  level:
+    root: debug
